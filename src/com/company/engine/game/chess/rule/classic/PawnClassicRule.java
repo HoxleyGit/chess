@@ -30,7 +30,7 @@ public class PawnClassicRule extends ClassicMoveRule {
                         (isPawnNStepStraightMove.test(2) &&
                                 new OnlyFirstMoveRule(pieceAtCoordinateMovedPredicate).test(move) &&
                                 new NoPieceFoundAtCoordinatesRule<>(
-                                        board.getAllChessCoordinatesBetweenStraight(move), board).test(move)));
+                                        board.getCoordinatesBetweenStraight(move), board).test(move)));
     }
 
     private boolean isCaptureMoveValid(PlaneMove move) {

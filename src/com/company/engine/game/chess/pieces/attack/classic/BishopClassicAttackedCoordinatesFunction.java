@@ -1,57 +1,88 @@
 package com.company.engine.game.chess.pieces.attack.classic;
 
+import com.company.commons.move.IntegerCoordinate;
 import com.company.engine.game.chess.pieces.attack.AttackedCoordinatesFunction;
-import com.company.engine.game.chess.chessboard.ChessboardCoordinate;
+import com.company.engine.game.chess.pieces.attack.AttackingPiecesBoard;
 import com.company.engine.game.chess.rule.classic.ClassicRuledPiece;
-import com.company.engine.game.chess.rule.classic.ClassicRuledPiecesBoard;
-import com.company.pieces.Piece;
 
+import java.util.HashSet;
 import java.util.Set;
 
 public class BishopClassicAttackedCoordinatesFunction extends AttackedCoordinatesFunction {
 
-    public BishopClassicAttackedCoordinatesFunction(ClassicRuledPiece relatedPiece, ClassicRuledPiecesBoard classicChessboard) {
-        super(relatedPiece, classicChessboard);
+    public BishopClassicAttackedCoordinatesFunction(ClassicRuledPiece relatedPiece, AttackingPiecesBoard board) {
+        super(relatedPiece, board);
     }
 
     @Override
-    public Set<ChessboardCoordinate> apply(Piece piece) {
-        var pieceCoordinate = classicChessboard.getChessboardCoordinateOf(piece);
-        var attackedCoordinates =
-                getCoordinatesDiagonallyUntilOccupied(pieceCoordinate, true, true);
-        attackedCoordinates.addAll(getCoordinatesDiagonallyUntilOccupied(pieceCoordinate, true, false));
-        attackedCoordinates.addAll(getCoordinatesDiagonallyUntilOccupied(pieceCoordinate, false, true));
-        attackedCoordinates.addAll(getCoordinatesDiagonallyUntilOccupied(pieceCoordinate, false, false));
+    protected Set<IntegerCoordinate> getAttackedCoordinatesByRelatedPieceCoordinate(
+            IntegerCoordinate relatedPieceCoordinate) {
+        var relatedPieceRowIndex = relatedPieceCoordinate.getRowIndex();
+        var relatedPieceColumnIndex = relatedPieceCoordinate.getColumnIndex();
+        var attackedCoordinates = new HashSet<IntegerCoordinate>();
+        for (var direction = 0; direction < 4; direction++) {
+            var isFirstOccupiedBoardCoordinateNotFound = true;
+            for (var rowIndex = relatedPieceRowIndex + getStartedRowIndexIncrementer(direction);
+                 shouldRowsBeIterated(direction, rowIndex) && isFirstOccupiedBoardCoordinateNotFound;
+                 rowIndex = getNextRowIndex(direction, rowIndex)) {
+                for (var columnIndex = relatedPieceColumnIndex + getStartedColumnIncrementer(direction);
+                     shouldColumnsBeIterated(direction, columnIndex) && isFirstOccupiedBoardCoordinateNotFound;
+                     columnIndex = getNextColumnIndex(direction, columnIndex)) {
+                    var attackedCoordinate = new IntegerCoordinate(rowIndex, columnIndex);
+                    isFirstOccupiedBoardCoordinateNotFound =
+                            !board.isCoordinateOccupied(new IntegerCoordinate(rowIndex, columnIndex));
+                    attackedCoordinates.add(attackedCoordinate);
+                }
+            }
+        }
         return attackedCoordinates;
     }
 
-    private Set<ChessboardCoordinate> getCoordinatesDiagonallyUntilOccupied(
-            ChessboardCoordinate chessboardCoordinate, boolean rowUp, boolean columnUp) {
-        throw new UnsupportedOperationException();
-/*        IntPredicate rowPredicate =
-                i -> rowUp ? i < chessboard.getLastRowIndex() : i >= chessboard.getFirstRowIndex();
-        IntPredicate columnPredicate =
-                j -> columnUp ? j < chessboard.getLastColumnIndex() : j >= chessboard.getFirstColumnIndex();
-        IntUnaryOperator newRowIndexFunction = i -> rowUp ? ++i : --i;
-        IntUnaryOperator newColumnIndexFunction = j -> columnUp ? ++j : --j;
-        var pieceRowIndex = chessboardCoordinate.getChessboardRow().asArrayIndex();
-        var pieceColumnIndex = chessboardCoordinate.getChessboardColumn().asArrayIndex();
-        var attackedCoordinates = new HashSet<ChessboardCoordinate>();
-        boolean breakNextTime = false;
-        for(int i = pieceRowIndex; rowPredicate.test(i); i = newRowIndexFunction.applyAsInt(i)) {
-            for(int j = pieceColumnIndex; columnPredicate.test(j); j = newColumnIndexFunction.applyAsInt(j)) {
-                var chessboardCoordinates = new ChessboardCoordinate(i, j);
-                var piece = chessboard.getPiece(chessboardCoordinates);
-                if(piece.map(p -> p.isWhite() == isWhite).orElse(false) || breakNextTime) {
-                    break;
-                }
-                if(piece.isEmpty()) {
-                    attackedCoordinates.add(new ChessboardCoordinate(i, j));
-                }
-                attackedCoordinates.add(new ChessboardCoordinate(i, j));
-                breakNextTime = true;
-            }
-        }
-        return attackedCoordinates;*/
+    private int getStartedRowIndexIncrementer(int direction) {
+        return switch (direction) {
+            case 0, 1 -> -1;
+            case 2, 3 -> 1;
+            default -> throw new UnsupportedOperationException();
+        };
+    }
+
+    private boolean shouldRowsBeIterated(int direction, int rowIndex) {
+        return switch (direction) {
+            case 0, 1 -> rowIndex >= board.getFirstRowIndex();
+            case 2, 3 -> rowIndex < board.getRowsNumber();
+            default -> throw new UnsupportedOperationException();
+        };
+    }
+
+    private int getNextRowIndex(int direction, int currentRowIndex) {
+        return switch (direction) {
+            case 0, 1 -> currentRowIndex - 1;
+            case 2, 3 -> currentRowIndex + 1;
+            default -> throw new UnsupportedOperationException();
+        };
+    }
+
+    private int getStartedColumnIncrementer(int direction) {
+        return switch (direction) {
+            case 0, 2 -> -1;
+            case 1, 3 -> 1;
+            default -> throw new UnsupportedOperationException();
+        };
+    }
+
+    private boolean shouldColumnsBeIterated(int direction, int columnIndex) {
+        return switch (direction) {
+            case 0, 2 -> columnIndex >= board.getFirstColumnIndex();
+            case 1, 3 -> columnIndex < board.getColumnsNumber();
+            default -> throw new UnsupportedOperationException();
+        };
+    }
+
+    private int getNextColumnIndex(int direction, int currentColumnIndex) {
+        return switch (direction) {
+            case 0, 2 -> currentColumnIndex - 1;
+            case 1, 3 -> currentColumnIndex + 1;
+            default -> throw new UnsupportedOperationException();
+        };
     }
 }

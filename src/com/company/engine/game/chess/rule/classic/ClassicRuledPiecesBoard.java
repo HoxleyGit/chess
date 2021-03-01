@@ -10,13 +10,13 @@ import java.util.Set;
 
 public interface ClassicRuledPiecesBoard extends BasicRuledPiecesBoard<ClassicRuledPiece> {
 
-    Optional<ClassicRuledPiece> getAllPieces();
+    Set<ClassicRuledPiece> getAllPieces();
 
     ClassicRuledPiecesBoard copyOf();
 
     Set<IntegerCoordinate> getCoordinatesBetweenDiagonally(PlaneMove move);
 
-    Set<IntegerCoordinate> getAllChessCoordinatesBetweenStraight(PlaneMove move);
+    Set<IntegerCoordinate> getCoordinatesBetweenStraight(PlaneMove move);
 
     Optional<ClassicRuledPiece> getFirstPieceOfRow(int rowIndex);
 

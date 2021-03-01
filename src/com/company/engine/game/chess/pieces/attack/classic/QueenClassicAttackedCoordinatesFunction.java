@@ -1,26 +1,25 @@
 package com.company.engine.game.chess.pieces.attack.classic;
 
+import com.company.commons.move.IntegerCoordinate;
 import com.company.engine.game.chess.pieces.attack.AttackedCoordinatesFunction;
-import com.company.engine.game.chess.chessboard.ClassicChessboard;
-import com.company.engine.game.chess.chessboard.ChessboardCoordinate;
+import com.company.engine.game.chess.pieces.attack.AttackingPiecesBoard;
 import com.company.engine.game.chess.rule.classic.ClassicRuledPiece;
-import com.company.engine.game.chess.rule.classic.ClassicRuledPiecesBoard;
-import com.company.pieces.Piece;
 
 import java.util.HashSet;
 import java.util.Set;
 
 public class QueenClassicAttackedCoordinatesFunction extends AttackedCoordinatesFunction {
 
-    public QueenClassicAttackedCoordinatesFunction(ClassicRuledPiece relatedPiece, ClassicRuledPiecesBoard classicChessboard) {
-        super(relatedPiece, classicChessboard);
+    public QueenClassicAttackedCoordinatesFunction(ClassicRuledPiece relatedPiece, AttackingPiecesBoard board) {
+        super(relatedPiece, board);
     }
 
     @Override
-    public Set<ChessboardCoordinate> apply(Piece piece) {
-        var attackedCoordinates = new HashSet<ChessboardCoordinate>();
-        attackedCoordinates.addAll(new RookClassicAttackedCoordinatesFunction(classicChessboard, isWhite).apply(piece));
-        attackedCoordinates.addAll(new BishopClassicAttackedCoordinatesFunction(classicChessboard, isWhite).apply(piece));
+    protected Set<IntegerCoordinate> getAttackedCoordinatesByRelatedPieceCoordinate(
+            IntegerCoordinate relatedPieceCoordinate) {
+        var attackedCoordinates = new HashSet<IntegerCoordinate>();
+        attackedCoordinates.addAll(new RookClassicAttackedCoordinatesFunction(relatedPiece, board).get());
+        attackedCoordinates.addAll(new BishopClassicAttackedCoordinatesFunction(relatedPiece, board).get());
         return attackedCoordinates;
     }
 }

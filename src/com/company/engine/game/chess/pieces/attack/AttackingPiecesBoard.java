@@ -11,4 +11,12 @@ public interface AttackingPiecesBoard extends ClassicRuledPiecesBoard {
     Optional<IntegerCoordinate> getCoordinateOf(ClassicRuledPiece piece);
 
     boolean isCoordinateFound(IntegerCoordinate coordinate);
+
+    int getRowsNumber();
+
+    int getColumnsNumber();
+
+    boolean isCoordinateOccupied(IntegerCoordinate integerCoordinate);
+
+    int getFirstRowIndex();
 }

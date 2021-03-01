@@ -35,7 +35,7 @@ public class KingClassicRule extends ClassicMoveRule {
                 new OnlyFirstMoveRule(pieceAtCoordinateMovedPredicate).test(move) &&
                 new NoPieceFoundAtMoveTargetRule<>(board).test(move) &&
                 new NoPieceFoundAtCoordinatesRule<>(
-                        board.getAllChessCoordinatesBetweenStraight(move), board).test(move);
+                        board.getCoordinatesBetweenStraight(move), board).test(move);
     }
 
     private boolean canKingAssistantCastle(

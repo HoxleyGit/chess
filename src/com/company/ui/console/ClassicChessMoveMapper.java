@@ -14,8 +14,8 @@ public class ClassicChessMoveMapper implements StringToMoveMapper {
 
     private IntegerCoordinate mapStringCoordinateToChessboardCoordinate(String stringCoordinate) {
         return new IntegerCoordinate(
-                mapColumnStringToIntegerPointColumn("" + stringCoordinate.charAt(0)),
-                mapRowStringToIntegerPointRow("" + stringCoordinate.charAt(1)));
+                mapRowStringToIntegerPointRow("" + stringCoordinate.charAt(1)),
+                mapColumnStringToIntegerPointColumn("" + stringCoordinate.charAt(0)));
     }
 
     private int mapColumnStringToIntegerPointColumn(String columnString) {

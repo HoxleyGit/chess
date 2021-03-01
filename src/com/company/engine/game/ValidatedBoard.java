@@ -1,6 +1,7 @@
 package com.company.engine.game;
 
 import com.company.commons.move.PlaneMove;
+import com.company.engine.game.validation.MoveValidator;
 
 import java.util.List;
 

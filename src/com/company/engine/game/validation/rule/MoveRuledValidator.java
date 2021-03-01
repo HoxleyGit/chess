@@ -1,7 +1,7 @@
 package com.company.engine.game.validation.rule;
 
 import com.company.commons.move.PlaneMove;
-import com.company.engine.game.MoveValidator;
+import com.company.engine.game.validation.MoveValidator;
 
 public class MoveRuledValidator<TPiece extends MoveRuledPiece> implements MoveValidator {
 

@@ -14,6 +14,6 @@ public class RookClassicRule extends ClassicMoveRule {
         return super.test(move) &&
                 move.isStraightMove() &&
                 new NoPieceFoundAtCoordinatesAndNoPieceAtMoveTargetOrSoftCaptureMoveRule<>(
-                        board.getAllChessCoordinatesBetweenStraight(move), relatedPiece, board).test(move);
+                        board.getCoordinatesBetweenStraight(move), relatedPiece, board).test(move);
     }
 }

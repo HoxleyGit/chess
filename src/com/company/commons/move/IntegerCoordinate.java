@@ -1,8 +1,5 @@
 package com.company.commons.move;
 
-import com.company.engine.game.chess.chessboard.ChessboardCoordinate;
-
-import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -36,6 +33,19 @@ public class IntegerCoordinate {
                 new IntegerCoordinate(rowIndex, columnIndex - 1),
                 new IntegerCoordinate(rowIndex - 1, columnIndex),
                 new IntegerCoordinate(rowIndex - 1, columnIndex))
+                .collect(Collectors.toSet());
+    }
+
+    public Set<IntegerCoordinate> getAllShortestLMoveTargetCoordinates() {
+        return Stream.of(
+                new IntegerCoordinate(rowIndex + 1, columnIndex + 2),
+                new IntegerCoordinate(rowIndex + 2, columnIndex + 1),
+                new IntegerCoordinate(rowIndex + 1, columnIndex - 2),
+                new IntegerCoordinate(rowIndex + 2, columnIndex - 1),
+                new IntegerCoordinate(rowIndex - 1, columnIndex - 2),
+                new IntegerCoordinate(rowIndex - 2, columnIndex - 1),
+                new IntegerCoordinate(rowIndex - 1, columnIndex + 2),
+                new IntegerCoordinate(rowIndex - 2, columnIndex + 1))
                 .collect(Collectors.toSet());
     }
 }

@@ -1,4 +1,4 @@
-package com.company.engine.game;
+package com.company.engine.game.validation;
 
 import com.company.commons.move.PlaneMove;
 

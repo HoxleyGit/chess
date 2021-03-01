@@ -1,9 +1,10 @@
 package com.company.engine.game;
 
+import com.company.commons.board.SquareBoard;
 import com.company.commons.history.GameState;
 import com.company.commons.history.MovesHistory;
 import com.company.commons.move.IntegerCoordinate;
-import com.company.engine.game.chess.chessboard.ClassicChessboard;
+import com.company.engine.game.chess.infrastructure.ClassicChessboard;
 import com.company.engine.game.chess.pieces.*;
 import com.company.engine.game.chess.rule.classic.ClassicRuledPiece;
 import com.company.engine.game.history.ArchivedMovesBoard;
@@ -30,29 +31,30 @@ public class BoardFactory {
     }
 
     private ClassicChessboard createAndSetupClassicChessboard(MovesHistory<ClassicRuledPiece> movesHistory) {
-        var board = new ClassicChessboard();
+        var squareBoard = new SquareBoard<ClassicRuledPiece>(8, 8);
+        var board = new ClassicChessboard(squareBoard);
         var gameState = new GameState<>(movesHistory, board);
         var pieceAtCoordinateMovedPredicate = new GameStatePieceAtCoordinateMovedPredicate<>(gameState);
-        board.placePiecesAtRow(() -> new Pawn(true, board, pieceAtCoordinateMovedPredicate), 6);
-        board.placePiecesAtRow(() -> new Pawn(false, board, pieceAtCoordinateMovedPredicate), 1);
-        board.placePiecesColumnMirroring(
+        squareBoard.placePiecesAtRow(() -> new Pawn(true, board, pieceAtCoordinateMovedPredicate), 6);
+        squareBoard.placePiecesAtRow(() -> new Pawn(false, board, pieceAtCoordinateMovedPredicate), 1);
+        squareBoard.placePiecesColumnMirroring(
                 () -> new Rook(true, board), new IntegerCoordinate(7, 0));
-        board.placePiecesColumnMirroring(
+        squareBoard.placePiecesColumnMirroring(
                 () -> new Rook(false, board), new IntegerCoordinate(0, 7));
-        board.placePiecesColumnMirroring(
+        squareBoard.placePiecesColumnMirroring(
                 () -> new ClassicKnight(true, board), new IntegerCoordinate(7, 1));
-        board.placePiecesColumnMirroring(
+        squareBoard.placePiecesColumnMirroring(
                 () -> new ClassicKnight(false, board), new IntegerCoordinate(0, 1));
-        board.placePiecesColumnMirroring(
+        squareBoard.placePiecesColumnMirroring(
                 () -> new ClassicBishop(true, board), new IntegerCoordinate(7, 2));
-        board.placePiecesColumnMirroring(
+        squareBoard.placePiecesColumnMirroring(
                 () -> new ClassicBishop(false, board), new IntegerCoordinate(0, 2));
-        board.placePiece(new Queen(true, board), new IntegerCoordinate(7, 3));
-        board.placePiece(new Queen(false, board), new IntegerCoordinate(0, 3));
-        board.placePiece(
+        squareBoard.placePiece(new Queen(true, board), new IntegerCoordinate(7, 3));
+        squareBoard.placePiece(new Queen(false, board), new IntegerCoordinate(0, 3));
+        squareBoard.placePiece(
                 new ClassicKing(true, board, pieceAtCoordinateMovedPredicate),
                 new IntegerCoordinate(7, 4));
-        board.placePiece(
+        squareBoard.placePiece(
                 new ClassicKing(false, board, pieceAtCoordinateMovedPredicate),
                 new IntegerCoordinate(0, 4));
         return board;

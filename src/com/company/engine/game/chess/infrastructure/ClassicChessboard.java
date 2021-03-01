@@ -105,4 +105,9 @@ public class ClassicChessboard implements
     public Set<IntegerCoordinate> getOccupiedCoordinates() {
         return squareBoard.getOccupiedCoordinates();
     }
+
+    @Override
+    public String toString() {
+        return squareBoard.toString();
+    }
 }

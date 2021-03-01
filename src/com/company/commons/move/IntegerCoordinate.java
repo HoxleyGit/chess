@@ -1,5 +1,6 @@
 package com.company.commons.move;
 
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -47,5 +48,19 @@ public class IntegerCoordinate {
                 new IntegerCoordinate(rowIndex - 1, columnIndex + 2),
                 new IntegerCoordinate(rowIndex - 2, columnIndex + 1))
                 .collect(Collectors.toSet());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        IntegerCoordinate that = (IntegerCoordinate) o;
+        return rowIndex == that.rowIndex &&
+                columnIndex == that.columnIndex;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(rowIndex, columnIndex);
     }
 }

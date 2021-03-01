@@ -15,16 +15,6 @@ i
 9src/com/company/engine/game/chess/pieces/ClassicKing.java,c\9\c9b3f83664b976b5ce9c0952a999a7c5a5055151
 k
 ;src/com/company/engine/game/chess/pieces/ClassicBishop.java,1\8\188aff2f4c94e31da514161d767d214b6f5a60db
-e
-5src/com/company/engine/game/chess/game/GameState.java,2\1\21b14eab99e35dc6fd4a1ae9435d076f60c98458
-r
-Bsrc/com/company/engine/game/chess/chessboard/ChessboardColumn.java,3\8\38eee5e529a86453f4d014e00e61da850700b07b
-o
-?src/com/company/engine/game/chess/chessboard/ChessboardRow.java,9\2\92b2203632de17ad151791732bd8db61c0bc16ef
-v
-Fsrc/com/company/engine/game/chess/chessboard/ChessboardCoordinate.java,3\7\37a7c596ad0d90c31ffb3bd56171292fc218ac4c
-g
-7src/com/company/engine/game/chess/chessboard/Board.java,c\3\c3a8af7be8d978d2b5a58ea9aad7728ba59837e1
 f
 6src/com/company/ui/console/ClassicChessMoveMapper.java,f\c\fc1edd46fd07c20aefbc25f62c5017491e001ae3
 b
@@ -37,10 +27,6 @@ b
 .src/com/company/ui/console/ConsoleWizzard.java,c\e\ceb74b58cac02944dcffe6293b13e006fc394306
 V
 &src/com/company/engine/game/Board.java,7\7\77caf55c1eabb63596378648e461614bea0259ec
-o
-?src/com/company/engine/game/chess/game/SimpleMoveValidator.java,2\9\29050013e41151f56852524b0cea7c16f11bd956
-^
-.src/com/company/engine/game/MoveValidator.java,4\9\496dfb1b129ddff56e63e966d52b21b6338c9f71
 s
 Csrc/com/company/engine/game/chess/rule/classic/RookClassicRule.java,7\b\7b86e510a6fe2e9a20aef54bc86959d39e5d223f
 x
@@ -79,8 +65,6 @@ o
 Zsrc/com/company/engine/game/chess/rule/classic/ClassicCasteKingAssistantMoveDirection.java,8\2\820d7c6e89b2f71681b0d3befd0fc07fc3ff1292
 u
 Esrc/com/company/engine/game/chess/rule/classic/ClassicRuledPiece.java,d\2\d2bc6bc81d730c976602bda14df8499bdb739826
-s
-Csrc/com/company/engine/game/chess/chessboard/ClassicChessboard.java,8\8\8832a67d71c2b719d96ff82daf6e7fb132770f44
 s
 Csrc/com/company/engine/game/validation/rule/MoveRuledValidator.java,8\7\873f1da0f373679ac4f2c432691d55adcdd85015
 `
@@ -135,3 +119,5 @@ c
 esrc/com/company/engine/game/chess/pieces/attack/classic/BishopClassicAttackedCoordinatesFunction.java,1\2\12dea9141a1e3d9bf53d6009021e548957e0e353
 ‹
 [src/com/company/engine/game/chess/pieces/attack/classic/KingClassicAttackedCoordinates.java,2\0\208583882bf5982af8c8dbead30f6f1d05deb53f
+w
+Gsrc/com/company/engine/game/chess/infrastructure/ClassicChessboard.java,c\e\ceefb1391d5919421406844fd2b4ee29fca96972

@@ -23,6 +23,7 @@ public class ValidatedBoard implements ObservableBoard {
     public void move(PlaneMove move) {
         if(moveValidator.isValid(move)){
             board.move(move);
+            System.out.printf(board.toString());
         } else {
             badMoveObservers.forEach(observer -> observer.onBadMove(move, "Move is illegal."));
         }

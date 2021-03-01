@@ -21,4 +21,9 @@ public class ArchivedMovesBoard<TPiece> implements Board {
         board.move(move);
         movedPiece.ifPresent(piece -> movesHistory.addMove(move, piece));
     }
+
+    @Override
+    public String toString() {
+        return board.toString();
+    }
 }

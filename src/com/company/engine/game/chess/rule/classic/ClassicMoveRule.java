@@ -20,7 +20,11 @@ public abstract class ClassicMoveRule implements MoveRule {
 
     @Override
     public boolean test(PlaneMove move) {
-        return currentKingMoveWillNotBeChecked(move);
+        return isCurrentPieceColorMove(move) && currentKingMoveWillNotBeChecked(move);
+    }
+
+    private boolean isCurrentPieceColorMove(PlaneMove move) {
+        return board.getPiece(move.getSource()).
     }
 
     private boolean currentKingMoveWillNotBeChecked(PlaneMove move) {

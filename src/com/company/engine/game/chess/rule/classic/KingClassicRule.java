@@ -30,8 +30,8 @@ public class KingClassicRule extends ClassicMoveRule {
 
     private boolean isCastleMove(PlaneMove move) {
         var moveSource = move.getSource();
-        return (move.isNStepLeftStraightMove(2) && canKingAssistantCastle(moveSource, FROM_RIGHT))
-                || (move.isNStepRightStraightMove(2) && canKingAssistantCastle(moveSource, FROM_LEFT)) &&
+        return (move.isNStepLeftStraightMove(2) && canKingAssistantCastle(moveSource, FROM_LEFT))
+                || (move.isNStepRightStraightMove(2) && canKingAssistantCastle(moveSource, FROM_RIGHT)) &&
                 new OnlyFirstMoveRule(pieceAtCoordinateMovedPredicate).test(move) &&
                 new NoPieceFoundAtMoveTargetRule<>(board).test(move) &&
                 new NoPieceFoundAtCoordinatesRule<>(

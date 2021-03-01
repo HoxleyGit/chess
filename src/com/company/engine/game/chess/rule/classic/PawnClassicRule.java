@@ -34,7 +34,7 @@ public class PawnClassicRule extends ClassicMoveRule {
     }
 
     private boolean isCaptureMoveValid(PlaneMove move) {
-        return (relatedPiece.isWhite() ? move.isNStepForwardDiagonalMove(2) : move.isNStepBackwardStraightMove(2)) &&
+        return (relatedPiece.isWhite() ? move.isNStepForwardDiagonalMove(1) : move.isNStepBackwardDiagonalMove(1)) &&
                 new SoftCaptureMoveRule<>(board, relatedPiece).test(move);
     }
 }

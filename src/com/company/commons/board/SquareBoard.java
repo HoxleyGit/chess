@@ -52,6 +52,7 @@ public class SquareBoard<TPiece> {
 
     public void move(PlaneMove move) {
         setPieceIfCoordinateIsFound(getPiece(move.getSource()).orElse(null), move.getTarget());
+        setPieceIfCoordinateIsFound(null, move.getSource());
     }
 
     public Optional<IntegerCoordinate> getCoordinateOf(ClassicRuledPiece piece) {
@@ -169,5 +170,17 @@ public class SquareBoard<TPiece> {
             }
         }
         return occupiedCoordinates;
+    }
+
+    @Override
+    public String toString() {
+        var string = "";
+        for(int i=getFirstRowIndex(); i<getRowsNumber(); i++){
+            for(int j=getFirstColumnIndex(); j<getColumnsNumber(); j++){
+                string += String.format("%s", fields[i][j] == null ? "[]" : fields[i][j].toString());
+            }
+            string += "\n";
+        }
+        return string;
     }
 }

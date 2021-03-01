@@ -18,6 +18,6 @@ public class Pawn extends ClassicPiece {
 
     @Override
     public String toString() {
-        return "\u2659";
+        return white ? "\u2659" : "\u265F";
     }
 }

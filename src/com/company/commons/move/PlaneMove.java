@@ -1,6 +1,7 @@
 package com.company.commons.move;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 public class PlaneMove {
@@ -40,7 +41,9 @@ public class PlaneMove {
 
     public boolean isDiagonalMove() {
         return source.columnIndex != target.columnIndex &&
-                source.rowIndex != target.rowIndex;
+                source.rowIndex != target.rowIndex &&
+                Math.abs(getSourceRowIndex() - getTargetRowIndex()) ==
+                Math.abs(getSourceColumnIndex() - getTargetColumnIndex());
     }
 
     public boolean isOneStepMove() {
@@ -64,18 +67,20 @@ public class PlaneMove {
     }
 
     public boolean isNStepLeftStraightMove(int nStep) {
-        throw new UnsupportedOperationException();
+        return getSourceRowIndex() == getTargetRowIndex() &&
+                getSourceColumnIndex() - getTargetColumnIndex() == nStep;
     }
 
     public boolean isNStepRightStraightMove(int nStep) {
-        throw new UnsupportedOperationException();
+        return getSourceRowIndex() == getTargetRowIndex() &&
+                getTargetColumnIndex() - getSourceColumnIndex() == nStep;
     }
 
     public boolean isShortestLMove() {
-        return (source.columnIndex - target.columnIndex == 1 ||
-                source.rowIndex - target.rowIndex == 1) &&
-                (source.columnIndex - target.columnIndex == 2 ^
-                source.rowIndex - target.rowIndex == 2);
+        return (Math.abs(source.columnIndex - target.columnIndex) == 1 ||
+                Math.abs(source.rowIndex - target.rowIndex) == 1) &&
+                (Math.abs(source.columnIndex - target.columnIndex) == 2 ^
+                        Math.abs(source.rowIndex - target.rowIndex) == 2);
     }
 
     public boolean isNStepForwardDiagonalMove(int nStep) {
@@ -89,7 +94,7 @@ public class PlaneMove {
     }
 
     public Set<IntegerCoordinate> getCoordinatesBetweenDiagonally(PlaneMove move) {
-        if(!move.isDiagonalMove()) {
+        if (!move.isDiagonalMove()) {
             return new HashSet<>();
         }
 
@@ -102,19 +107,22 @@ public class PlaneMove {
         var minimalColumnIndex = Math.min(moveSourceColumnIndex, moveTargetColumnIndex);
         var maximalColumnIndex = Math.max(moveSourceColumnIndex, moveTargetColumnIndex);
         var minimalCoordinate = new IntegerCoordinate(minimalRowIndex, minimalColumnIndex);
-        int rowsIncrementer =
-                minimalCoordinate.equals(move.getSource()) || minimalCoordinate.equals(move.getTarget()) ? 1 : -1;
+        var times = maximalColumnIndex - minimalColumnIndex - 1;
         var coordinatesBetweenDiagonally = new HashSet<IntegerCoordinate>();
-        for(int rowIndex = minimalRowIndex; rowIndex <= maximalRowIndex; rowIndex = rowIndex + rowsIncrementer) {
-            for(int columnIndex = minimalColumnIndex; columnIndex <= maximalColumnIndex; columnIndex++) {
-                coordinatesBetweenDiagonally.add(new IntegerCoordinate(rowIndex, columnIndex));
-            }
+        int rowStartIndex =
+                minimalCoordinate.equals(move.getSource()) || minimalCoordinate.equals(move.getTarget()) ?
+                        minimalRowIndex : maximalRowIndex;
+        int rowIncrementer =
+                minimalCoordinate.equals(move.getSource()) || minimalCoordinate.equals(move.getTarget()) ? 1 : -1;
+        for (int time = 1; time <= times; time++) {
+            coordinatesBetweenDiagonally.add(new IntegerCoordinate(
+                    rowStartIndex + (rowIncrementer * time), minimalColumnIndex + time));
         }
         return coordinatesBetweenDiagonally;
     }
 
     public Set<IntegerCoordinate> getCoordinatesBetweenStraight(PlaneMove move) {
-        if(!move.isStraightMove()) {
+        if (!move.isStraightMove()) {
             return new HashSet<>();
         }
 
@@ -126,15 +134,29 @@ public class PlaneMove {
         var maximalRowIndex = Math.max(moveSourceRowIndex, moveTargetRowIndex);
         var minimalColumnIndex = Math.min(moveSourceColumnIndex, moveTargetColumnIndex);
         var maximalColumnIndex = Math.max(moveSourceColumnIndex, moveTargetColumnIndex);
-        var times = (minimalRowIndex == maximalRowIndex ?
+        var times = (minimalRowIndex != maximalRowIndex ?
                 maximalRowIndex - minimalRowIndex :
                 maximalColumnIndex - minimalColumnIndex) - 1;
         var coordinatesBetweenStraight = new HashSet<IntegerCoordinate>();
-        for(int time = 0; time < times; time++) {
+        for (int time = 1; time <= times; time++) {
             coordinatesBetweenStraight.add(new IntegerCoordinate(
-                    minimalRowIndex + (minimalRowIndex == maximalRowIndex ? 0 : 1),
-                    minimalColumnIndex + (minimalColumnIndex == maximalColumnIndex ? 0 : 1)));
+                    minimalRowIndex + ((minimalRowIndex == maximalRowIndex ? 0 : 1) * time),
+                    minimalColumnIndex + ((minimalColumnIndex == maximalColumnIndex ? 0 : 1) * time)));
         }
         return coordinatesBetweenStraight;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PlaneMove planeMove = (PlaneMove) o;
+        return Objects.equals(source, planeMove.source) &&
+                Objects.equals(target, planeMove.target);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(source, target);
     }
 }

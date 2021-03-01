@@ -15,6 +15,6 @@ public class Queen extends ClassicPiece {
 
     @Override
     public String toString() {
-        return "\u2655";
+        return white ? "\u2655" : "\u265B";
     }
 }

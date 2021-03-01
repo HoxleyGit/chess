@@ -1,7 +1,6 @@
 package com.company.engine.game.chess.pieces;
 
 import com.company.engine.game.chess.pieces.attack.AttackingPiecesBoard;
-import com.company.engine.game.chess.rule.classic.ClassicRuledPiecesBoard;
 import com.company.engine.game.chess.rule.classic.RookClassicRule;
 import com.company.engine.game.chess.pieces.attack.classic.RookClassicAttackedCoordinatesFunction;
 
@@ -15,6 +14,6 @@ public class Rook extends ClassicPiece {
 
     @Override
     public String toString() {
-        return "\u2656";
+        return white ? "\u2656" : "\u265C";
     }
 }

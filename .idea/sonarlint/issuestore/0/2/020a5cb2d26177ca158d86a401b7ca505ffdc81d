@@ -1,37 +1,11 @@
 
 V
-java:S3400="9Remove this method and declare a constant for this value.(”·³›8ŞÅ‹Ôş.
-{
-java:S1128"YRemove this unused import 'com.company.engine.game.chess.rule.classic.ClassicRuledPiece'.(¥À·‘ûÿÿÿÿ8æ¤ËÔş.
-M
-java:S1172,"+Remove this unused method parameter "move".(Ù‚ÌĞşÿÿÿÿ8ÜØŠÔş.
-H
-java:S1168-"+Return an empty collection instead of null.(¥¹ï8ã´‰Ôş.
-K
-java:S3740@"/Provide the parametrized type for this generic.(Çô®58æ¤ËÔş.
+java:S3400]"9Remove this method and declare a constant for this value.(”·³›8ŞÅ‹Ôş.
+W
+java:S3400"9Remove this method and declare a constant for this value.(”·³›8ß©‹Ôş.
 
 java:S1128"_Remove this unused import 'com.company.engine.game.chess.rule.classic.ClassicRuledPiecesBoard'.(¡÷î£üÿÿÿÿ8’ªÉÔş.
-M
-java:S1172@"1Remove this unused method parameter "coordinate".(Çô®58ò™ŒÔş.
-H
-java:S1168)"+Return an empty collection instead of null.(¥¹ï8ã´‰Ôş.
-H
-java:S1168E"+Return an empty collection instead of null.(¥¹ï8ã´‰Ôş.
-\
-java:S1144"?Remove this unused private "placePiecesColumnMirroring" method.(é«Õ8ÖÇ›Ôş.
-Q
-java:S11724"/Remove this unused method parameter "rowIndex".(«²‹Üüÿÿÿÿ8ñ„‹Ôş.
-
-java:S1186H"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(©ÕÓ†8ã´‰Ôş.
-H
-java:S1172("+Remove this unused method parameter "move".(¯ßÃÇ8—–ŠÔş.
-Q
-java:S1144"/Remove this unused private "placePiece" method.(Àùä·şÿÿÿÿ8ÉªÁÔş.
-V
-java:S34009"9Remove this method and declare a constant for this value.(”·³›8ß©‹Ôş.
-C
-java:S1172"&Remove these unused method parameters.(é«Õ8Ê”Ôş.
-Q
-java:S3740$"/Provide the parametrized type for this generic.(¥„‚–ÿÿÿÿÿ8’ªÉÔş.
-L
-java:S11720"/Remove this unused method parameter "rowIndex".(§»”õ8ÜØŠÔş.
+:
+java:S1643¶"Use a StringBuilder instead.(ò²’æ8ğ…ºşş.
+:
+java:S1643´"Use a StringBuilder instead.(Â¨Æ8ğ…ºşş.

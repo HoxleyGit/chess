@@ -6,7 +6,7 @@ public enum ClassicCasteKingAssistantMoveDirection {
     FROM_LEFT {
         @Override
         public int getCurrentKingColumnIncrementer() {
-            return 1;
+            return -1;
         }
 
         @Override
@@ -22,7 +22,7 @@ public enum ClassicCasteKingAssistantMoveDirection {
     FROM_RIGHT {
         @Override
         public int getCurrentKingColumnIncrementer() {
-            return -1;
+            return 1;
         }
 
         @Override

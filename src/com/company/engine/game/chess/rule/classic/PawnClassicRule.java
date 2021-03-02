@@ -4,6 +4,7 @@ import com.company.commons.move.PlaneMove;
 import com.company.engine.game.validation.rule.basic.*;
 
 import java.util.function.IntPredicate;
+import java.util.function.Supplier;
 
 public class PawnClassicRule extends ClassicMoveRule {
 
@@ -11,8 +12,9 @@ public class PawnClassicRule extends ClassicMoveRule {
 
     public PawnClassicRule(ClassicRuledPiece relatedPiece,
                            ClassicRuledPiecesBoard board,
+                           Supplier<Integer> movesCountSupplier,
                            PieceAtCoordinateMovedPredicate pieceAtCoordinateMovedPredicate) {
-        super(relatedPiece, board);
+        super(relatedPiece, board, movesCountSupplier);
         this.pieceAtCoordinateMovedPredicate = pieceAtCoordinateMovedPredicate;
     }
 

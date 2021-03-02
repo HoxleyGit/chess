@@ -6,13 +6,16 @@ import com.company.engine.game.chess.rule.classic.KingClassicRule;
 import com.company.engine.game.chess.pieces.attack.classic.KingClassicAttackedCoordinates;
 import com.company.engine.game.validation.rule.basic.PieceAtCoordinateMovedPredicate;
 
+import java.util.function.Supplier;
+
 public class ClassicKing extends ClassicPiece {
 
     public ClassicKing(boolean white,
                        AttackingPiecesBoard board,
-                       PieceAtCoordinateMovedPredicate pieceAtCoordinateMovedPredicate) {
+                       PieceAtCoordinateMovedPredicate pieceAtCoordinateMovedPredicate,
+                       Supplier<Integer> movesCountSupplier) {
         this.white = white;
-        this.moveRule = new KingClassicRule(this, board, pieceAtCoordinateMovedPredicate);
+        this.moveRule = new KingClassicRule(this, board, movesCountSupplier, pieceAtCoordinateMovedPredicate);
         this.attackedCoordinatesFunction = new KingClassicAttackedCoordinates(this, board);
     }
 
@@ -23,6 +26,6 @@ public class ClassicKing extends ClassicPiece {
 
     @Override
     public String toString() {
-        return white ? "\u2654" : "\u265A";
+        return !white ? "\u2654" : "\u265A";
     }
 }

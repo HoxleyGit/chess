@@ -5,7 +5,7 @@ import com.company.engine.game.validation.MoveValidator;
 
 import java.util.List;
 
-public class ValidatedBoard implements ObservableBoard {
+public class ValidatedBoardBadMove implements BadMoveObservableBoard {
 
     private final Board board;
 
@@ -13,7 +13,7 @@ public class ValidatedBoard implements ObservableBoard {
 
     private final List<BadMoveObserver> badMoveObservers;
 
-    public ValidatedBoard(Board board, MoveValidator moveValidator, List<BadMoveObserver> badMoveObservers) {
+    public ValidatedBoardBadMove(Board board, MoveValidator moveValidator, List<BadMoveObserver> badMoveObservers) {
         this.board = board;
         this.moveValidator = moveValidator;
         this.badMoveObservers = badMoveObservers;
@@ -23,7 +23,6 @@ public class ValidatedBoard implements ObservableBoard {
     public void move(PlaneMove move) {
         if(moveValidator.isValid(move)){
             board.move(move);
-            System.out.printf(board.toString());
         } else {
             badMoveObservers.forEach(observer -> observer.onBadMove(move, "Move is illegal."));
         }
@@ -32,5 +31,10 @@ public class ValidatedBoard implements ObservableBoard {
     @Override
     public void subscribe(BadMoveObserver badMoveObserver) {
         badMoveObservers.add(badMoveObserver);
+    }
+
+    @Override
+    public String toString() {
+        return board.toString();
     }
 }

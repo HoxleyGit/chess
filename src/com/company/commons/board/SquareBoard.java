@@ -175,12 +175,28 @@ public class SquareBoard<TPiece> {
     @Override
     public String toString() {
         var string = "";
+        for (int row = 0; row < 8; row++) {
+            string += "\n";
+            string += "---------------------------------\n";
+
+            for (int column = 0; column < 8; column++) {
+                string += "| " + String.format("%s", fields[row][column] == null ? " " : fields[row][column].toString()) + " ";
+            }
+            string += "|  " + (8 - row);
+        }
+        string += "\n";
+        string += "---------------------------------\n";
+        string += "  A   B   C   D   E   F   G   H\n";
+        return string;
+/*        var string = "";
         for(int i=getFirstRowIndex(); i<getRowsNumber(); i++){
+            string += i + " ";
             for(int j=getFirstColumnIndex(); j<getColumnsNumber(); j++){
                 string += String.format("%s", fields[i][j] == null ? "[]" : fields[i][j].toString());
             }
             string += "\n";
         }
-        return string;
+        string += "  A B C D E F G H";
+        return string;*/
     }
 }

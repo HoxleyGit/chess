@@ -3,8 +3,10 @@ package com.company.engine.game.chess.rule.classic;
 import com.company.commons.move.IntegerCoordinate;
 import com.company.commons.move.PlaneMove;
 import com.company.engine.game.validation.rule.MoveRule;
+import com.company.engine.game.validation.rule.basic.BasicRuledPiece;
 
 import java.util.Set;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 public abstract class ClassicMoveRule implements MoveRule {
@@ -13,9 +15,14 @@ public abstract class ClassicMoveRule implements MoveRule {
 
     protected final ClassicRuledPiecesBoard board;
 
-    public ClassicMoveRule(ClassicRuledPiece relatedPiece, ClassicRuledPiecesBoard board) {
+    protected final Supplier<Integer> movesCountSupplier;
+
+    public ClassicMoveRule(ClassicRuledPiece relatedPiece,
+                           ClassicRuledPiecesBoard board,
+                           Supplier<Integer> movesCountSupplier) {
         this.relatedPiece = relatedPiece;
         this.board = board;
+        this.movesCountSupplier = movesCountSupplier;
     }
 
     @Override
@@ -24,7 +31,10 @@ public abstract class ClassicMoveRule implements MoveRule {
     }
 
     private boolean isCurrentPieceColorMove(PlaneMove move) {
-        return board.getPiece(move.getSource()).
+        var movedPiece = board.getPiece(move.getSource());
+        return movesCountSupplier.get() % 2 == 0 ?
+                movedPiece.map(BasicRuledPiece::isWhite).orElse(false) :
+                movedPiece.map(piece -> !piece.isWhite()).orElse(false);
     }
 
     private boolean currentKingMoveWillNotBeChecked(PlaneMove move) {

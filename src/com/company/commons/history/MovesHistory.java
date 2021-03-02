@@ -12,10 +12,18 @@ public class MovesHistory<TPiece> {
 
     public void addMove(PlaneMove move, TPiece movedPiece) {
         moves.add(move);
+        addMovedPiece(movedPiece);
+    }
+
+    public void addMovedPiece(TPiece movedPiece) {
         movedPieces.add(movedPiece);
     }
 
     public boolean wasPieceMoved(TPiece piece) {
         return movedPieces.contains(piece);
+    }
+
+    public int countMoves() {
+        return moves.size();
     }
 }

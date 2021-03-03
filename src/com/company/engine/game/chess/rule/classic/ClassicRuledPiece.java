@@ -10,4 +10,8 @@ public interface ClassicRuledPiece extends BasicRuledPiece {
     Set<IntegerCoordinate> getAttackedCoordinates();
 
     boolean isCheckable();
+
+    boolean canCastle();
+
+    boolean canBePromoted();
 }

@@ -25,6 +25,11 @@ public class ClassicKing extends ClassicPiece {
     }
 
     @Override
+    public boolean canCastle() {
+        return true;
+    }
+
+    @Override
     public String toString() {
         return !white ? "\u2654" : "\u265A";
     }

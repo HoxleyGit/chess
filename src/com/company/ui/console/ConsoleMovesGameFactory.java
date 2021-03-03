@@ -4,11 +4,15 @@ import com.company.commons.board.SquareBoard;
 import com.company.commons.history.GameState;
 import com.company.commons.history.MovesHistory;
 import com.company.commons.move.IntegerCoordinate;
+import com.company.engine.game.MemorableBoard;
 import com.company.engine.game.MoveMadeObservableBoard;
 import com.company.engine.game.ValidatedBoardBadMove;
 import com.company.engine.game.chess.infrastructure.ClassicChessboard;
 import com.company.engine.game.chess.pieces.*;
+import com.company.engine.game.chess.rule.classic.ClassicKingCastleMoveObserver;
+import com.company.engine.game.chess.rule.classic.ClassicRuledBoardMemoryMovesHistory;
 import com.company.engine.game.chess.rule.classic.ClassicRuledPiece;
+import com.company.engine.game.chess.rule.classic.ClassicSimplePromotionMoveObserver;
 import com.company.engine.game.history.ArchivedMovesBoard;
 import com.company.engine.game.validation.rule.MoveRuledValidator;
 import com.company.engine.game.validation.rule.basic.GameStatePieceAtCoordinateMovedPredicate;
@@ -27,9 +31,13 @@ public class ConsoleMovesGameFactory {
     private ConsoleMovesGame createClassicChessConsoleMovesGame() {
         var movesHistory = new MovesHistory<ClassicRuledPiece>();
         var classicChessboard = createAndSetupClassicChessboard(movesHistory);
-        var moveMadeObservableBoard = new MoveMadeObservableBoard(classicChessboard, new ArrayList<>());
+        var classicRuledBoardMemoryMovesHistory = new ClassicRuledBoardMemoryMovesHistory();
+        var moveMadeObservableBoard = new MoveMadeObservableBoard(new MemorableBoard(classicChessboard, classicRuledBoardMemoryMovesHistory, movesHistory), new ArrayList<>());
+        moveMadeObservableBoard.subscribe(new ClassicKingCastleMoveObserver(classicChessboard, movesHistory, classicRuledBoardMemoryMovesHistory));
+        moveMadeObservableBoard.subscribe(new ClassicSimplePromotionMoveObserver(classicChessboard, classicRuledBoardMemoryMovesHistory, isWhite -> new Queen(isWhite, classicChessboard, movesHistory::countMoves)));
         var validatedBoard = new ValidatedBoardBadMove(
-                new ArchivedMovesBoard<>(moveMadeObservableBoard, classicChessboard, movesHistory),
+                new ArchivedMovesBoard<>(
+                        moveMadeObservableBoard, classicChessboard, movesHistory),
                 new MoveRuledValidator<>(classicChessboard),
                 new ArrayList<>());
         return new ClassicChessConsoleMovesGame(validatedBoard, moveMadeObservableBoard, new ClassicChessMoveMapper());

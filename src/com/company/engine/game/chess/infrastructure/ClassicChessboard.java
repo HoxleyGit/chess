@@ -57,6 +57,11 @@ public class ClassicChessboard implements
     }
 
     @Override
+    public void placePiece(ClassicRuledPiece piece, IntegerCoordinate coordinate) {
+        squareBoard.placePiece(piece, coordinate);
+    }
+
+    @Override
     public Set<ClassicRuledPiece> getAllPieces() {
         return squareBoard.getAllPieces();
     }
@@ -94,6 +99,11 @@ public class ClassicChessboard implements
     @Override
     public int getFirstColumnIndex() {
         return squareBoard.getFirstColumnIndex();
+    }
+
+    @Override
+    public int getLastRowIndex() {
+        return squareBoard.getLastRowIndex();
     }
 
     @Override

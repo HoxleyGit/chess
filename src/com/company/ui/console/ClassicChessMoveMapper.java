@@ -6,7 +6,7 @@ import com.company.commons.move.PlaneMove;
 public class ClassicChessMoveMapper implements StringToMoveMapper {
 
     public PlaneMove map(String move) {
-        String[] stringCoordinates = move.split("->");
+        String[] stringCoordinates = move.replaceAll("\\s+","").toUpperCase().split("->");
         return new PlaneMove(
                 mapStringCoordinateToChessboardCoordinate(stringCoordinates[0]),
                 mapStringCoordinateToChessboardCoordinate(stringCoordinates[1]));

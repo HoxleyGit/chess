@@ -1,5 +1,8 @@
 package com.company.engine.game.chess.rule.classic;
 
+import com.company.commons.move.IntegerCoordinate;
+import com.company.commons.move.PlaneMove;
+
 import java.util.Optional;
 
 public enum ClassicCasteKingAssistantMoveDirection {

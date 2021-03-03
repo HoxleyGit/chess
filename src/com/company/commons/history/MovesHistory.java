@@ -6,9 +6,18 @@ import java.util.*;
 
 public class MovesHistory<TPiece> {
 
-    private final List<PlaneMove> moves = new ArrayList<>();
+    private final List<PlaneMove> moves;
 
-    private final Set<TPiece> movedPieces = new HashSet<>();
+    private final Set<TPiece> movedPieces;
+
+    public MovesHistory() {
+        this(new ArrayList<>(), new HashSet<>());
+    }
+
+    private MovesHistory(List<PlaneMove> moves, Set<TPiece> movedPieces) {
+        this.moves = moves;
+        this.movedPieces = movedPieces;
+    }
 
     public void addMove(PlaneMove move, TPiece movedPiece) {
         moves.add(move);
@@ -25,5 +34,9 @@ public class MovesHistory<TPiece> {
 
     public int countMoves() {
         return moves.size();
+    }
+
+    public MovesHistory<TPiece> copyOf() {
+        return new MovesHistory<>(new ArrayList<>(moves), new HashSet<>(movedPieces));
     }
 }

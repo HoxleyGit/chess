@@ -34,4 +34,14 @@ public abstract class ClassicPiece implements ClassicRuledPiece {
     public boolean isCheckable() {
         return false;
     }
+
+    @Override
+    public boolean canCastle() {
+        return false;
+    }
+
+    @Override
+    public boolean canBePromoted() {
+        return false;
+    }
 }

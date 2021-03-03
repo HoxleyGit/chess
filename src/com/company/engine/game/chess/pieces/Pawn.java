@@ -23,4 +23,9 @@ public class Pawn extends ClassicPiece {
     public String toString() {
         return !white ? "\u2659" : "\u265F";
     }
+
+    @Override
+    public boolean canBePromoted() {
+        return true;
+    }
 }

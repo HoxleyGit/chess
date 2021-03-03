@@ -25,35 +25,7 @@ public class ClassicKingCastleMove implements MoveRule {
 
     @Override
     public boolean test(PlaneMove move) {
-        var moveSource = move.getSource();
-        return (move.isNStepLeftStraightMove(2) && canKingAssistantCastle(moveSource, FROM_LEFT))
-                || (move.isNStepRightStraightMove(2) && canKingAssistantCastle(moveSource, FROM_RIGHT)) &&
-                new OnlyFirstMoveRule(pieceAtCoordinateMovedPredicate).test(move) &&
-                new NoPieceFoundAtMoveTargetRule<>(board).test(move) &&
-                new NoPieceFoundAtCoordinatesRule<>(
-                        board.getCoordinatesBetweenStraight(move), board).test(move);
-    }
-
-    private boolean canKingAssistantCastle(
-            IntegerCoordinate actualKingCoordinate,
-            ClassicCasteKingAssistantMoveDirection classicCasteKingAssistantMoveDirection) {
-        var castleAssistantCastleMove =
-                createKingAssistantCastleMove(actualKingCoordinate, classicCasteKingAssistantMoveDirection);
-        return classicCasteKingAssistantMoveDirection.getKingAssistant(board, actualKingCoordinate.getRowIndex())
-                .map(piece -> piece.getMoveRule().test(castleAssistantCastleMove) &&
-                        new OnlyFirstMoveRule(pieceAtCoordinateMovedPredicate).test(castleAssistantCastleMove))
-                .orElse(false);
-    }
-
-    private PlaneMove createKingAssistantCastleMove(
-            IntegerCoordinate actualKingCoordinate,
-            ClassicCasteKingAssistantMoveDirection classicCasteKingAssistantMoveDirection) {
-        var kingActualRow = actualKingCoordinate.getRowIndex();
-        return new PlaneMove(
-                new IntegerCoordinate(kingActualRow,
-                        classicCasteKingAssistantMoveDirection.getSourceColumnIndex(board)),
-                new IntegerCoordinate(kingActualRow,
-                        actualKingCoordinate.getColumnIndex() +
-                                classicCasteKingAssistantMoveDirection.getCurrentKingColumnIncrementer()));
+        return new ClassicKingLeftCastleMove(board, pieceAtCoordinateMovedPredicate).test(move) ||
+                new ClassicKingRightCastleMove(board, pieceAtCoordinateMovedPredicate).test(move);
     }
 }

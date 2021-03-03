@@ -1,4 +1,3 @@
-/*
 package com.company.engine.game.chess.rule.classic;
 
 import com.company.commons.history.MovesHistory;
@@ -7,6 +6,10 @@ import com.company.engine.game.MoveMadeObserver;
 import com.company.engine.game.validation.rule.basic.PieceAtCoordinateMovedPredicate;
 
 import java.util.function.Supplier;
+
+import static com.company.engine.game.chess.rule.classic.ClassicCasteKingAssistantMoveDirection.FROM_LEFT;
+import static com.company.engine.game.chess.rule.classic.ClassicCasteKingAssistantMoveDirection.FROM_RIGHT;
+import static com.company.engine.game.chess.rule.classic.KingAssistantMoveUtil.createKingAssistantCastleMove;
 
 public class ClassicKingCastleMoveObserver implements MoveMadeObserver {
 
@@ -27,19 +30,32 @@ public class ClassicKingCastleMoveObserver implements MoveMadeObserver {
 
     @Override
     public void onMoveMade() {
-*/
-/*        classicRuledBoardMemoryMovesHistory.getLastMoveWithPreviousBoard().ifPresent(lastMoveWithPreviousBoard -> {
+        classicRuledBoardMemoryMovesHistory.getLastMoveWithPreviousBoard().ifPresent(lastMoveWithPreviousBoard -> {
             var lastMove = lastMoveWithPreviousBoard.getMove();
             var previousBoard = lastMoveWithPreviousBoard.getPreviousBoard();
-            if(new ClassicKingCastleMove(
-                    previousBoard,
+            var kingCoordinate = lastMove.getSource();
+            PieceAtCoordinateMovedPredicate kingMovedPredicate =
                     coordinate -> previousBoard.getPiece(coordinate)
-                            .map(piece -> lastMoveWithPreviousBoard.getPreviousMovesHistory().wasPieceMoved(piece)).orElse(false)).test(lastMove)) {
-                board.move();
-                movesHistory.addMovedPiece();
+                            .map(piece -> lastMoveWithPreviousBoard.getPreviousMovesHistory().wasPieceMoved(piece)).orElse(false);
+            PlaneMove kingAssistantCastleMove = null;
+            if(!previousBoard.getPiece(lastMove.getSource()).map(ClassicRuledPiece::canCastle).orElse(false)) {
+                return;
             }
-        });*//*
+
+            if(lastMove.isNStepRightStraightMove(2)) {
+                kingAssistantCastleMove =
+                        createKingAssistantCastleMove(kingCoordinate, FROM_RIGHT, board);
+
+            } else if(lastMove.isNStepLeftStraightMove(2)) {
+                kingAssistantCastleMove =
+                        createKingAssistantCastleMove(kingCoordinate, FROM_LEFT, board);
+            }
+
+            if(kingAssistantCastleMove != null) {
+                board.move(kingAssistantCastleMove);
+                movesHistory.addMovedPiece(board.getPiece(kingAssistantCastleMove.getTarget()).orElseThrow());
+            }
+        });
 
     }
 }
-*/

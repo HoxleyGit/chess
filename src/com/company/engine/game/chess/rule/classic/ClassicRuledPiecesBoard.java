@@ -25,4 +25,10 @@ public interface ClassicRuledPiecesBoard extends BasicRuledPiecesBoard<ClassicRu
     int getLastColumnIndex();
 
     int getFirstColumnIndex();
+
+    int getLastRowIndex();
+
+    int getFirstRowIndex();
+
+    void placePiece(ClassicRuledPiece piece, IntegerCoordinate coordinate);
 }

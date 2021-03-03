@@ -1,4 +1,3 @@
-/*
 package com.company.engine.game.chess.rule.classic;
 
 import com.company.commons.history.MovesHistory;
@@ -10,12 +9,13 @@ public class ClassicRuledBoardMemoryMovesHistory  {
 
     private final List<MoveWithPreviousBoard> movesWithPreviousBoards = new ArrayList<>();
 
-    public void addMove(PlaneMove move, ClassicRuledPiecesBoard board) {
-        movesWithPreviousBoards.add(new MoveWithPreviousBoard(move, board));
+    public void addMove(PlaneMove move, ClassicRuledPiecesBoard board, MovesHistory<ClassicRuledPiece> movesHistory) {
+        movesWithPreviousBoards.add(new MoveWithPreviousBoard(move, board, movesHistory));
     }
 
     public Optional<MoveWithPreviousBoard> getLastMoveWithPreviousBoard() {
-        return movesWithPreviousBoards.stream().skip(movesWithPreviousBoards.size() - 1).findFirst();
+        var size = movesWithPreviousBoards.isEmpty() ? 1 : movesWithPreviousBoards.size();
+        return movesWithPreviousBoards.stream().skip(size - 1).findFirst();
     }
 
     public static class MoveWithPreviousBoard {
@@ -48,4 +48,3 @@ public class ClassicRuledBoardMemoryMovesHistory  {
     }
 
 }
-*/

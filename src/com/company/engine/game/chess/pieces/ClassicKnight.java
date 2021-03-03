@@ -12,7 +12,7 @@ public class ClassicKnight extends ClassicPiece {
     public ClassicKnight(boolean white, AttackingPiecesBoard board, Supplier<Integer> movesCountSupplier) {
         this.white = white;
         this.moveRule = new KnightClassicRule(this, board, movesCountSupplier);
-        this.attackedCoordinatesFunction = new KnightClassicAttackedCoordinatesFunction(this, board);
+        this.attackedCoordinatesFunction = new KnightClassicAttackedCoordinatesFunction(this);
     }
 
     @Override

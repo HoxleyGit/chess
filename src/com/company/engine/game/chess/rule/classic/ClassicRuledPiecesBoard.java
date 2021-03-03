@@ -31,4 +31,14 @@ public interface ClassicRuledPiecesBoard extends BasicRuledPiecesBoard<ClassicRu
     int getFirstRowIndex();
 
     void placePiece(ClassicRuledPiece piece, IntegerCoordinate coordinate);
+
+    boolean isCoordinateFound(IntegerCoordinate coordinate);
+
+    Optional<IntegerCoordinate> getCoordinateOf(ClassicRuledPiece piece);
+
+    boolean isCoordinateOccupied(IntegerCoordinate integerCoordinate);
+
+    int getRowsNumber();
+
+    int getColumnsNumber();
 }

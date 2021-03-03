@@ -11,7 +11,7 @@ public class ClassicBishop extends ClassicPiece {
     public ClassicBishop(boolean white, AttackingPiecesBoard board, Supplier<Integer> movesCountSupplier) {
         this.white = white;
         this.moveRule = new BishopClassicRule(this, board, movesCountSupplier);
-        this.attackedCoordinatesFunction = new BishopClassicAttackedCoordinatesFunction(this, board);
+        this.attackedCoordinatesFunction = new BishopClassicAttackedCoordinatesFunction(this);
     }
 
     @Override

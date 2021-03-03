@@ -12,7 +12,7 @@ public class Queen extends ClassicPiece {
     public Queen(boolean white, AttackingPiecesBoard board, Supplier<Integer> movesCountSupplier) {
         this.white = white;
         this.moveRule = new QueenClassicRule(this, board, movesCountSupplier);
-        this.attackedCoordinatesFunction = new QueenClassicAttackedCoordinatesFunction(this, board);
+        this.attackedCoordinatesFunction = new QueenClassicAttackedCoordinatesFunction(this);
     }
 
     @Override

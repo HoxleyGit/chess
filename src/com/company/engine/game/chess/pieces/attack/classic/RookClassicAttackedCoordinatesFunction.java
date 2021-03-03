@@ -4,29 +4,30 @@ import com.company.commons.move.IntegerCoordinate;
 import com.company.engine.game.chess.pieces.attack.AttackedCoordinatesFunction;
 import com.company.engine.game.chess.pieces.attack.AttackingPiecesBoard;
 import com.company.engine.game.chess.rule.classic.ClassicRuledPiece;
+import com.company.engine.game.chess.rule.classic.ClassicRuledPiecesBoard;
 
 import java.util.HashSet;
 import java.util.Set;
 
 public class RookClassicAttackedCoordinatesFunction extends AttackedCoordinatesFunction {
 
-    public RookClassicAttackedCoordinatesFunction(ClassicRuledPiece relatedPiece, AttackingPiecesBoard board) {
-        super(relatedPiece, board);
+    public RookClassicAttackedCoordinatesFunction(ClassicRuledPiece relatedPiece) {
+        super(relatedPiece);
     }
 
     @Override
     protected Set<IntegerCoordinate> getAttackedCoordinatesByRelatedPieceCoordinate(
-            IntegerCoordinate relatedPieceCoordinate) {
+            IntegerCoordinate relatedPieceCoordinate, ClassicRuledPiecesBoard board) {
         var relatedPieceRowIndex = relatedPieceCoordinate.getRowIndex();
         var relatedPieceColumnIndex = relatedPieceCoordinate.getColumnIndex();
         var attackedCoordinates = new HashSet<IntegerCoordinate>();
         for (var direction = 0; direction < 4; direction++) {
             var isFirstOccupiedBoardCoordinateNotFound = true;
             for (var rowIndex = relatedPieceRowIndex + getStartedRowIndexIncrementer(direction);
-                 shouldRowsBeIterated(direction, rowIndex) && isFirstOccupiedBoardCoordinateNotFound;
+                 shouldRowsBeIterated(direction, rowIndex, board) && isFirstOccupiedBoardCoordinateNotFound;
                  rowIndex = getNextRowIndex(direction, rowIndex)) {
                 for (var columnIndex = relatedPieceColumnIndex + getStartedColumnIncrementer(direction);
-                     shouldColumnsBeIterated(direction, columnIndex) && isFirstOccupiedBoardCoordinateNotFound;
+                     shouldColumnsBeIterated(direction, columnIndex, board) && isFirstOccupiedBoardCoordinateNotFound;
                      columnIndex = getNextColumnIndex(direction, columnIndex)) {
                     var attackedCoordinate = new IntegerCoordinate(rowIndex, columnIndex);
                     isFirstOccupiedBoardCoordinateNotFound =
@@ -46,7 +47,7 @@ public class RookClassicAttackedCoordinatesFunction extends AttackedCoordinatesF
         };
     }
 
-    private boolean shouldRowsBeIterated(int direction, int rowIndex) {
+    private boolean shouldRowsBeIterated(int direction, int rowIndex, ClassicRuledPiecesBoard board) {
         return switch (direction) {
             case 0 -> rowIndex < board.getRowsNumber();
             case 2 -> rowIndex >= board.getFirstRowIndex();
@@ -73,7 +74,7 @@ public class RookClassicAttackedCoordinatesFunction extends AttackedCoordinatesF
         };
     }
 
-    private boolean shouldColumnsBeIterated(int direction, int columnIndex) {
+    private boolean shouldColumnsBeIterated(int direction, int columnIndex, ClassicRuledPiecesBoard board) {
         return switch (direction) {
             case 1 -> columnIndex >= board.getFirstColumnIndex();
             case 3 -> columnIndex < board.getLastColumnIndex();

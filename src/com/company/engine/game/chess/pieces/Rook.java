@@ -11,7 +11,7 @@ public class Rook extends ClassicPiece {
     public Rook(boolean white, AttackingPiecesBoard board, Supplier<Integer> movesCountSupplier) {
         this.white = white;
         this.moveRule = new RookClassicRule(this, board, movesCountSupplier);
-        this.attackedCoordinatesFunction = new RookClassicAttackedCoordinatesFunction(this, board);
+        this.attackedCoordinatesFunction = new RookClassicAttackedCoordinatesFunction(this);
     }
 
     @Override

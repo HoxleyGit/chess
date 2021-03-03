@@ -7,7 +7,7 @@ import java.util.Set;
 
 public interface ClassicRuledPiece extends BasicRuledPiece {
 
-    Set<IntegerCoordinate> getAttackedCoordinates();
+    Set<IntegerCoordinate> getAttackedCoordinates(ClassicRuledPiecesBoard board);
 
     boolean isCheckable();
 

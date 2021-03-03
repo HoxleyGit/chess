@@ -16,7 +16,7 @@ public class ClassicKing extends ClassicPiece {
                        Supplier<Integer> movesCountSupplier) {
         this.white = white;
         this.moveRule = new KingClassicRule(this, board, movesCountSupplier, pieceAtCoordinateMovedPredicate);
-        this.attackedCoordinatesFunction = new KingClassicAttackedCoordinates(this, board);
+        this.attackedCoordinatesFunction = new KingClassicAttackedCoordinates(this);
     }
 
     @Override

@@ -14,27 +14,24 @@ public abstract class AttackedCoordinatesFunction implements IntegerCoordinatesS
 
     protected final ClassicRuledPiece relatedPiece;
 
-    protected final AttackingPiecesBoard board;
-
-    public AttackedCoordinatesFunction(ClassicRuledPiece relatedPiece, AttackingPiecesBoard board) {
+    public AttackedCoordinatesFunction(ClassicRuledPiece relatedPiece) {
         this.relatedPiece = relatedPiece;
-        this.board = board;
     }
 
     @Override
-    public Set<IntegerCoordinate> get() {
-        return getRelatedPieceCoordinate()
-                .map(this::getAttackedCoordinatesByRelatedPieceCoordinate)
+    public Set<IntegerCoordinate> apply(ClassicRuledPiecesBoard board) {
+        return getRelatedPieceCoordinate(board)
+                .map(coordinate -> getAttackedCoordinatesByRelatedPieceCoordinate(coordinate, board))
                 .orElse(new HashSet<>())
                 .stream()
                 .filter(board::isCoordinateFound)
                 .collect(Collectors.toSet());
     }
 
-    private Optional<IntegerCoordinate> getRelatedPieceCoordinate() {
+    private Optional<IntegerCoordinate> getRelatedPieceCoordinate(ClassicRuledPiecesBoard board) {
         return board.getCoordinateOf(relatedPiece);
     }
 
     protected abstract Set<IntegerCoordinate> getAttackedCoordinatesByRelatedPieceCoordinate(
-            IntegerCoordinate relatedPieceCoordinate);
+            IntegerCoordinate relatedPieceCoordinate, ClassicRuledPiecesBoard classicRuledPiecesBoard);
 }

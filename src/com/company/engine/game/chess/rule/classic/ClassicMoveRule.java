@@ -38,9 +38,11 @@ public abstract class ClassicMoveRule implements MoveRule {
     }
 
     private boolean currentKingMoveWillNotBeChecked(PlaneMove move) {
-        return this.board.getAllPieces().stream()
+        var chessboardAfterMove = this.board.copyOf();
+        chessboardAfterMove.move(move);
+        return chessboardAfterMove.getAllPieces().stream()
                 .filter(piece -> piece.isWhite() != relatedPiece.isWhite())
-                .flatMap(piece -> piece.getAttackedCoordinates().stream())
+                .flatMap(piece -> piece.getAttackedCoordinates(chessboardAfterMove).stream())
                 .noneMatch(getCurrentMovePredicatedCheckableCoordinates(move)::contains);
     }
 

@@ -16,7 +16,7 @@ public class Pawn extends ClassicPiece {
                 Supplier<Integer> movesCountSupplier) {
         this.white = white;
         this.moveRule = new PawnClassicRule(this, board, movesCountSupplier, pieceAtCoordinateMovedPredicate);
-        this.attackedCoordinatesFunction = new PawnClassicAttackedCoordinatesFunction(this, board);
+        this.attackedCoordinatesFunction = new PawnClassicAttackedCoordinatesFunction(this);
     }
 
     @Override

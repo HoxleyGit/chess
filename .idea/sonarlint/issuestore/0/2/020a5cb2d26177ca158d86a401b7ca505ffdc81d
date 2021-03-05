@@ -1,11 +1,16 @@
 
 :
-java:S1643¶"Use a StringBuilder instead.(ò²’æ8ğ…ºşş.
-
-java:S1128"_Remove this unused import 'com.company.engine.game.chess.rule.classic.ClassicRuledPiecesBoard'.(¡÷î£üÿÿÿÿ8’ªÉÔş.
+java:S1643·"Use a StringBuilder instead.(é–»˜8ôŞâ£ÿ.
 W
 java:S3400"9Remove this method and declare a constant for this value.(”·³›8ß©‹Ôş.
+
+java:S1128"_Remove this unused import 'com.company.engine.game.chess.rule.classic.ClassicRuledPiecesBoard'.(¡÷î£üÿÿÿÿ8’ªÉÔş.
 :
-java:S1643´"Use a StringBuilder instead.(Â¨Æ8ğ…ºşş.
+java:S1643³"Use a StringBuilder instead.(ò²’æ8ôŞâ£ÿ.
+:
+java:S1643¹"Use a StringBuilder instead.(ìàÁ´8ôŞâ£ÿ.
+^	java:S125¿"<This block of commented-out lines of code should be removed.(Ê‘•¿ÿÿÿÿÿ8ôŞâ£ÿ.
+:
+java:S1643´"Use a StringBuilder instead.(ç™Ã„8ôŞâ£ÿ.
 V
 java:S3400]"9Remove this method and declare a constant for this value.(”·³›8ŞÅ‹Ôş.

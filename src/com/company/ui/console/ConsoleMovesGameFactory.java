@@ -49,12 +49,13 @@ public class ConsoleMovesGameFactory {
         var gameState = new GameState<>(movesHistory, board);
         Supplier<Integer> movesCountSupplier = movesHistory::countMoves;
         var pieceAtCoordinateMovedPredicate = new GameStatePieceAtCoordinateMovedPredicate<>(gameState);
-        squareBoard.placePiecesAtRow(() ->
-                new Pawn(true, board, pieceAtCoordinateMovedPredicate, movesCountSupplier), 6);
-        squareBoard.placePiecesAtRow(() ->
-                new Pawn(false, board, pieceAtCoordinateMovedPredicate, movesCountSupplier), 1);
+/*        squareBoard.placePiecesAtRow(() ->
+                new Pawn(true, board, pieceAtCoordinateMovedPredicate, movesCountSupplier), 6);*/
+/*        squareBoard.placePiecesAtRow(() ->
+                new Pawn(false, board, pieceAtCoordinateMovedPredicate, movesCountSupplier), 1);*/
         squareBoard.placePiecesColumnMirroring(
                 () -> new Rook(true, board, movesCountSupplier), new IntegerCoordinate(7, 0));
+/*
         squareBoard.placePiecesColumnMirroring(
                 () -> new Rook(false, board, movesCountSupplier), new IntegerCoordinate(0, 7));
         squareBoard.placePiecesColumnMirroring(
@@ -66,13 +67,14 @@ public class ConsoleMovesGameFactory {
         squareBoard.placePiecesColumnMirroring(
                 () -> new ClassicBishop(false, board, movesCountSupplier), new IntegerCoordinate(0, 2));
         squareBoard.placePiece(new Queen(true, board, movesCountSupplier), new IntegerCoordinate(7, 3));
+*/
         squareBoard.placePiece(new Queen(false, board, movesCountSupplier), new IntegerCoordinate(0, 3));
         squareBoard.placePiece(
                 new ClassicKing(true, board, pieceAtCoordinateMovedPredicate, movesCountSupplier),
                 new IntegerCoordinate(7, 4));
-        squareBoard.placePiece(
+/*        squareBoard.placePiece(
                 new ClassicKing(false, board, pieceAtCoordinateMovedPredicate, movesCountSupplier),
-                new IntegerCoordinate(0, 4));
+                new IntegerCoordinate(0, 4));*/
         return board;
     }
 }

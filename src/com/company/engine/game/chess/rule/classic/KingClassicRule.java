@@ -21,7 +21,7 @@ public class KingClassicRule extends ClassicMoveRule {
     public boolean test(PlaneMove move) {
         return super.test(move) &&
                 isSimpleKingMove(move) ||
-                new ClassicKingCastleMove(board, pieceAtCoordinateMovedPredicate).test(move);
+                new ClassicKingCastleMove(board, pieceAtCoordinateMovedPredicate, relatedPiece).test(move);
     }
 
     private boolean isSimpleKingMove(PlaneMove move) {

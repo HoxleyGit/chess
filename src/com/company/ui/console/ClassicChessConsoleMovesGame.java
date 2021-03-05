@@ -72,7 +72,6 @@ public class ClassicChessConsoleMovesGame implements BadMoveObserver, MoveMadeOb
                 continue;
             }
             board.move(mappedMove);
-            System.out.println(board.toString());
         }
     }
 

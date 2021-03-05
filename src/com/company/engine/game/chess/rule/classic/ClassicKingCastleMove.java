@@ -17,15 +17,27 @@ public class ClassicKingCastleMove implements MoveRule {
 
     private final PieceAtCoordinateMovedPredicate pieceAtCoordinateMovedPredicate;
 
+    private final ClassicRuledPiece relatedPiece;
+
     public ClassicKingCastleMove(ClassicRuledPiecesBoard board,
-                                 PieceAtCoordinateMovedPredicate pieceAtCoordinateMovedPredicate) {
+                                 PieceAtCoordinateMovedPredicate pieceAtCoordinateMovedPredicate,
+                                 ClassicRuledPiece relatedPiece) {
         this.board = board;
         this.pieceAtCoordinateMovedPredicate = pieceAtCoordinateMovedPredicate;
+        this.relatedPiece = relatedPiece;
     }
 
     @Override
     public boolean test(PlaneMove move) {
-        return new ClassicKingLeftCastleMove(board, pieceAtCoordinateMovedPredicate).test(move) ||
-                new ClassicKingRightCastleMove(board, pieceAtCoordinateMovedPredicate).test(move);
+        return kingWillNotBeCheckOnMovePath(move) &&
+                (new ClassicKingLeftCastleMove(board, pieceAtCoordinateMovedPredicate).test(move) ||
+                new ClassicKingRightCastleMove(board, pieceAtCoordinateMovedPredicate).test(move));
+    }
+
+    private boolean kingWillNotBeCheckOnMovePath(PlaneMove move) {
+        return board.getAllPieces().stream()
+                .filter(piece -> piece.isWhite() != relatedPiece.isWhite())
+                .flatMap(piece -> piece.getAttackedCoordinates(board).stream())
+                .noneMatch(move.getCoordinatesBetweenStraight(move)::contains);
     }
 }

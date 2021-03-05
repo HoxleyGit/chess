@@ -25,8 +25,8 @@ public class RookClassicAttackedCoordinatesFunction extends AttackedCoordinatesF
             var isFirstOccupiedBoardCoordinateNotFound = true;
             var rowIndex = relatedPieceRowIndex;
             var columnIndex = relatedPieceColumnIndex;
-            while(shouldRowsBeIterated(direction, rowIndex, board) ||
-                    shouldColumnsBeIterated(direction, columnIndex, board) &&
+            while((shouldRowsBeIterated(direction, rowIndex, board) ||
+                    shouldColumnsBeIterated(direction, columnIndex, board)) &&
                     isFirstOccupiedBoardCoordinateNotFound) {
                 rowIndex = rowIndex + getStartedRowIndexIncrementer(direction);
                 columnIndex = columnIndex + getStartedColumnIncrementer(direction);

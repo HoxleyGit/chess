@@ -23,6 +23,21 @@ public class RookClassicAttackedCoordinatesFunction extends AttackedCoordinatesF
         var attackedCoordinates = new HashSet<IntegerCoordinate>();
         for (var direction = 0; direction < 4; direction++) {
             var isFirstOccupiedBoardCoordinateNotFound = true;
+            var rowIndex = relatedPieceRowIndex;
+            var columnIndex = relatedPieceColumnIndex;
+            while(shouldRowsBeIterated(direction, rowIndex, board) ||
+                    shouldColumnsBeIterated(direction, columnIndex, board) &&
+                    isFirstOccupiedBoardCoordinateNotFound) {
+                rowIndex = rowIndex + getStartedRowIndexIncrementer(direction);
+                columnIndex = columnIndex + getStartedColumnIncrementer(direction);
+                var attackedCoordinate = new IntegerCoordinate(rowIndex, columnIndex);
+                isFirstOccupiedBoardCoordinateNotFound =
+                        !board.isCoordinateOccupied(new IntegerCoordinate(rowIndex, columnIndex));
+                attackedCoordinates.add(attackedCoordinate);
+            }
+        }
+/*        for (var direction = 0; direction < 4; direction++) {
+            var isFirstOccupiedBoardCoordinateNotFound = true;
             for (var rowIndex = relatedPieceRowIndex + getStartedRowIndexIncrementer(direction);
                  shouldRowsBeIterated(direction, rowIndex, board) && isFirstOccupiedBoardCoordinateNotFound;
                  rowIndex = getNextRowIndex(direction, rowIndex)) {
@@ -35,13 +50,14 @@ public class RookClassicAttackedCoordinatesFunction extends AttackedCoordinatesF
                     attackedCoordinates.add(attackedCoordinate);
                 }
             }
-        }
+        }*/
         return attackedCoordinates;
     }
 
     private int getStartedRowIndexIncrementer(int direction) {
         return switch (direction) {
-            case 0, 2 -> 1;
+            case 0 -> 1;
+            case 2 -> -1;
             case 1, 3 -> 0;
             default -> throw new UnsupportedOperationException();
         };
@@ -49,19 +65,9 @@ public class RookClassicAttackedCoordinatesFunction extends AttackedCoordinatesF
 
     private boolean shouldRowsBeIterated(int direction, int rowIndex, ClassicRuledPiecesBoard board) {
         return switch (direction) {
-            case 0 -> rowIndex < board.getRowsNumber();
-            case 2 -> rowIndex >= board.getFirstRowIndex();
-            case 1, 3 -> board.getCoordinateOf(relatedPiece)
-                    .map(relatedPieceCoordinate -> relatedPieceCoordinate.getRowIndex() != rowIndex)
-                    .orElse(false);
-            default -> throw new UnsupportedOperationException();
-        };
-    }
-
-    private int getNextRowIndex(int direction, int currentRowIndex) {
-        return switch (direction) {
-            case 0, 1 -> currentRowIndex + 1;
-            case 2, 3 -> currentRowIndex - 1;
+            case 0 -> rowIndex < board.getRowsNumber() - 1;
+            case 2 -> rowIndex > board.getFirstRowIndex();
+            case 1, 3 -> false;
             default -> throw new UnsupportedOperationException();
         };
     }
@@ -69,26 +75,17 @@ public class RookClassicAttackedCoordinatesFunction extends AttackedCoordinatesF
     private int getStartedColumnIncrementer(int direction) {
         return switch (direction) {
             case 0, 2 -> 0;
-            case 1, 3 -> 1;
+            case 1 -> - 1;
+            case 3 -> 1;
             default -> throw new UnsupportedOperationException();
         };
     }
 
     private boolean shouldColumnsBeIterated(int direction, int columnIndex, ClassicRuledPiecesBoard board) {
         return switch (direction) {
-            case 1 -> columnIndex >= board.getFirstColumnIndex();
-            case 3 -> columnIndex < board.getLastColumnIndex();
-            case 0, 2 -> board.getCoordinateOf(relatedPiece)
-                    .map(relatedPieceCoordinate -> relatedPieceCoordinate.getColumnIndex() != columnIndex)
-                    .orElse(false);
-            default -> throw new UnsupportedOperationException();
-        };
-    }
-
-    private int getNextColumnIndex(int direction, int currentColumnIndex) {
-        return switch (direction) {
-            case 0, 1 -> currentColumnIndex - 1;
-            case 2, 3 -> currentColumnIndex + 1;
+            case 1 -> columnIndex > board.getFirstColumnIndex();
+            case 3 -> columnIndex < board.getColumnsNumber() - 1;
+            case 0, 2 -> false;
             default -> throw new UnsupportedOperationException();
         };
     }

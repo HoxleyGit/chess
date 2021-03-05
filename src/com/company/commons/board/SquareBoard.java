@@ -188,15 +188,5 @@ public class SquareBoard<TPiece> {
         string += "---------------------------------\n";
         string += "  A   B   C   D   E   F   G   H\n";
         return string;
-/*        var string = "";
-        for(int i=getFirstRowIndex(); i<getRowsNumber(); i++){
-            string += i + " ";
-            for(int j=getFirstColumnIndex(); j<getColumnsNumber(); j++){
-                string += String.format("%s", fields[i][j] == null ? "[]" : fields[i][j].toString());
-            }
-            string += "\n";
-        }
-        string += "  A B C D E F G H";
-        return string;*/
     }
 }

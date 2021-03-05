@@ -36,21 +36,6 @@ public class RookClassicAttackedCoordinatesFunction extends AttackedCoordinatesF
                 attackedCoordinates.add(attackedCoordinate);
             }
         }
-/*        for (var direction = 0; direction < 4; direction++) {
-            var isFirstOccupiedBoardCoordinateNotFound = true;
-            for (var rowIndex = relatedPieceRowIndex + getStartedRowIndexIncrementer(direction);
-                 shouldRowsBeIterated(direction, rowIndex, board) && isFirstOccupiedBoardCoordinateNotFound;
-                 rowIndex = getNextRowIndex(direction, rowIndex)) {
-                for (var columnIndex = relatedPieceColumnIndex + getStartedColumnIncrementer(direction);
-                     shouldColumnsBeIterated(direction, columnIndex, board) && isFirstOccupiedBoardCoordinateNotFound;
-                     columnIndex = getNextColumnIndex(direction, columnIndex)) {
-                    var attackedCoordinate = new IntegerCoordinate(rowIndex, columnIndex);
-                    isFirstOccupiedBoardCoordinateNotFound =
-                            !board.isCoordinateOccupied(new IntegerCoordinate(rowIndex, columnIndex));
-                    attackedCoordinates.add(attackedCoordinate);
-                }
-            }
-        }*/
         return attackedCoordinates;
     }
 

@@ -38,6 +38,6 @@ public class ClassicKingCastleMove implements MoveRule {
         return board.getAllPieces().stream()
                 .filter(piece -> piece.isWhite() != relatedPiece.isWhite())
                 .flatMap(piece -> piece.getAttackedCoordinates(board).stream())
-                .noneMatch(move.getCoordinatesBetweenStraight(move)::contains);
+                .noneMatch(move.getCoordinatesBetweenStraight()::contains);
     }
 }

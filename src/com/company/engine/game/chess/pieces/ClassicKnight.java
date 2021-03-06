@@ -17,6 +17,6 @@ public class ClassicKnight extends ClassicPiece {
 
     @Override
     public String toString() {
-        return !white ? "\u2658" : "\u265E";
+        return white ? "\u265E" : "\u2658";
     }
 }

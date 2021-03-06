@@ -3,7 +3,6 @@ package com.company.commons.board;
 import com.company.commons.move.IntegerCoordinate;
 import com.company.commons.move.PlaneMove;
 import com.company.engine.game.chess.rule.classic.ClassicRuledPiece;
-import com.company.engine.game.chess.rule.classic.ClassicRuledPiecesBoard;
 
 import java.util.*;
 import java.util.function.Supplier;
@@ -109,13 +108,13 @@ public class SquareBoard<TPiece> {
     }
 
     public Set<IntegerCoordinate> getCoordinatesBetweenDiagonally(PlaneMove move) {
-        return move.getCoordinatesBetweenDiagonally(move).stream()
+        return move.getCoordinatesBetweenDiagonally().stream()
                 .filter(this::isCoordinateFound)
                 .collect(Collectors.toSet());
     }
 
     public Set<IntegerCoordinate> getCoordinatesBetweenStraight(PlaneMove move) {
-        return move.getCoordinatesBetweenStraight(move).stream()
+        return move.getCoordinatesBetweenStraight().stream()
                 .filter(this::isCoordinateFound)
                 .collect(Collectors.toSet());
     }

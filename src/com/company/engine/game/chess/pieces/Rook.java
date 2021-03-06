@@ -16,6 +16,6 @@ public class Rook extends ClassicPiece {
 
     @Override
     public String toString() {
-        return !white ? "\u2656" : "\u265C";
+        return white ? "\u265C" : "\u2656";
     }
 }

@@ -16,6 +16,6 @@ public class ClassicBishop extends ClassicPiece {
 
     @Override
     public String toString() {
-        return !white ? "\u2657" : "\u265D";
+        return white ? "\u265D" : "\u2657";
     }
 }

@@ -32,15 +32,22 @@ public class ConsoleMovesGameFactory {
         var movesHistory = new MovesHistory<ClassicRuledPiece>();
         var classicChessboard = createAndSetupClassicChessboard(movesHistory);
         var classicRuledBoardMemoryMovesHistory = new ClassicRuledBoardMemoryMovesHistory();
-        var moveMadeObservableBoard = new MoveMadeObservableBoard(new MemorableBoard(classicChessboard, classicRuledBoardMemoryMovesHistory, movesHistory), new ArrayList<>());
-        moveMadeObservableBoard.subscribe(new ClassicKingCastleMoveObserver(classicChessboard, movesHistory, classicRuledBoardMemoryMovesHistory));
-        moveMadeObservableBoard.subscribe(new ClassicSimplePromotionMoveObserver(classicChessboard, classicRuledBoardMemoryMovesHistory, isWhite -> new Queen(isWhite, classicChessboard, movesHistory::countMoves)));
+        var moveMadeObservableBoard = new MoveMadeObservableBoard(
+                new MemorableBoard(classicChessboard, classicRuledBoardMemoryMovesHistory, movesHistory),
+                new ArrayList<>());
+        moveMadeObservableBoard.subscribe(new ClassicKingCastleMoveObserver(
+                classicChessboard, movesHistory, classicRuledBoardMemoryMovesHistory));
+        moveMadeObservableBoard.subscribe(new ClassicSimplePromotionMoveObserver(
+                classicChessboard,
+                classicRuledBoardMemoryMovesHistory,
+                isWhite -> new Queen(isWhite, classicChessboard, movesHistory::countMoves)));
         var validatedBoard = new ValidatedBoardBadMove(
                 new ArchivedMovesBoard<>(
                         moveMadeObservableBoard, classicChessboard, movesHistory),
                 new MoveRuledValidator<>(classicChessboard),
                 new ArrayList<>());
-        return new ClassicChessConsoleMovesGame(validatedBoard, moveMadeObservableBoard, new ClassicChessMoveMapper());
+        return new ClassicChessConsoleMovesGame(
+                validatedBoard, moveMadeObservableBoard, movesHistory, new ClassicChessMoveMapper());
     }
 
     private ClassicChessboard createAndSetupClassicChessboard(MovesHistory<ClassicRuledPiece> movesHistory) {

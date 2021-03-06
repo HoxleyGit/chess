@@ -24,7 +24,7 @@ public class ValidatedBoardBadMove implements BadMoveObservableBoard {
         if(moveValidator.isValid(move)){
             board.move(move);
         } else {
-            badMoveObservers.forEach(observer -> observer.onBadMove(move, "Move is illegal."));
+            badMoveObservers.forEach(observer -> observer.onBadMove(move, "Move is illegal"));
         }
     }
 

@@ -31,6 +31,6 @@ public class ClassicKing extends ClassicPiece {
 
     @Override
     public String toString() {
-        return !white ? "\u2654" : "\u265A";
+        return white ? "\u265A": "\u2654";
     }
 }

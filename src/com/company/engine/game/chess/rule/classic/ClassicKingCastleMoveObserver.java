@@ -5,8 +5,6 @@ import com.company.commons.move.PlaneMove;
 import com.company.engine.game.MoveMadeObserver;
 import com.company.engine.game.validation.rule.basic.PieceAtCoordinateMovedPredicate;
 
-import java.util.function.Supplier;
-
 import static com.company.engine.game.chess.rule.classic.ClassicCasteKingAssistantMoveDirection.FROM_LEFT;
 import static com.company.engine.game.chess.rule.classic.ClassicCasteKingAssistantMoveDirection.FROM_RIGHT;
 import static com.company.engine.game.chess.rule.classic.KingAssistantMoveUtil.createKingAssistantCastleMove;
